@@ -35,7 +35,9 @@ public:
   }
 };
 
-using trim_whitespace = trim_characters<' ', '\t'>;
+using trim_whitespace = trim_characters<' ', '\t', '\r', '\n'>;
+
+using trim_cr = trim_characters<'\r'>;
 } // namespace trim_policy
 
 template <char character> struct delimiter {

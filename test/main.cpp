@@ -95,7 +95,7 @@ TEST_CASE("Parse the most basic of CSV headers" * test_suite("Reader")) {
 
 TEST_CASE("Parse the most basic of CSV buffers with ', ' delimiter using initial space" *
           test_suite("Reader")) {
-  Reader<delimiter<','>, quote_character<'"'>, first_row_is_header<false>, trim_policy::no_trimming> csv;
+  Reader<delimiter<','>, quote_character<'"'>, first_row_is_header<false>, trim_policy::trim_cr> csv;
   csv.mmap("inputs/test_02.csv");
 
   const std::vector<std::string> expected_cells{"a", " b", " c", "1", " 2", " 3", "4", " 5", " 6"};
@@ -266,7 +266,7 @@ TEST_CASE("Parse CSV with empty lines" * test_suite("Reader")) {
   csv.mmap("inputs/empty_lines.csv");
 
   const std::vector<std::string> expected_cells{"a", "b", "c", "1", "2",  "3",  "4", "5",
-                                          "6", "7", "8", "9", "10", "11", "12"};
+                                          "6", "7", "8", "9", "", "10", "11", "12", "", ""};
 
   size_t rows{0}, cells{0};
   for (auto row : csv) {
